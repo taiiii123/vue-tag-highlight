@@ -2,22 +2,44 @@
   "name": "vue-tag-highlight",
   "displayName": "vue-tag-highlight",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "icon": "images/extension-icon.png",
+  "publisher": "Y3191",
+  "repository": {
+    "type": "git",
+      "url": "https://github.com/taiiii123/vue-tag-highlight.git"
+  },
   "engines": {
     "vscode": "^1.81.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:plaintext"
+  ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "vue-tag-highlight.helloWorld",
-        "title": "Hello World"
+    "configuration": {
+      "title": "vue-tag-highlight",
+      "properties": {
+        "vue-tag-highlight.color.script": {
+          "type": "string",
+          "default": "rgba(255, 255, 255, 0.2)",
+          "description": "Change the background color of the script tag."
+        },
+        "vue-tag-highlight.color.template": {
+          "type": "string",
+          "default": "rgba(0, 0, 255, 0.2)",
+          "description": "Change the background color of the template tag."
+        },
+        "vue-tag-highlight.color.style": {
+          "type": "string",
+          "default": "rgba(255, 0, 0, 0.2)",
+          "description": "Change the background color of the style tag."
+        }
       }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
