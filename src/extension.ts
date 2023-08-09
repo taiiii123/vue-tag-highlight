@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
             end: /<\/template>/g,
         },
         style: {
-            start: /<style>/g,
+            start: /<style.*>/g,
             end: /<\/style>/g,
         },
     };
