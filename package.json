@@ -2,7 +2,7 @@
   "name": "vue-tag-highlight",
   "displayName": "vue-tag-highlight",
   "description": "",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "icon": "images/extension-icon.png",
   "publisher": "Y3191",
   "repository": {
@@ -10,7 +10,7 @@
       "url": "https://github.com/taiiii123/vue-tag-highlight.git"
   },
   "engines": {
-    "vscode": "^1.81.0"
+    "vscode": "^1.46.0"
   },
   "categories": [
     "Other"
@@ -50,7 +50,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.81.0",
+    "@types/vscode": "^1.46.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "20.2.5",

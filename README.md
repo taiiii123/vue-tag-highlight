@@ -21,8 +21,4 @@ If you want to set up custom highlighting for the `<script>`, `<template>`, and 
 
 
 
-### 1.0.0
-
-Initial release of vue-tag-highlight
-
 ---
