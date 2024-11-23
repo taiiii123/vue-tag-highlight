@@ -1,9 +1,9 @@
 # Change Log
 
-All notable changes to the "vue-tag-highlight" extension will be documented in this file.
+## [0.0.1] - 2023-08-09
+### Initial Release
+- First version released.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+## [0.0.7] - 2024-11-23
+### Added
+- Added a highlight to the scrollbar.

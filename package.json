@@ -2,7 +2,8 @@
   "name": "vue-tag-highlight",
   "displayName": "Vue Tag Highlight",
   "description": "",
-  "version": "0.0.6",
+  "changelog": "CHANGELOG.md",
+  "version": "0.0.7",
   "icon": "images/extension-icon.png",
   "publisher": "Y3191",
   "repository": {
