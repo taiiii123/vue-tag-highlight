@@ -66,6 +66,8 @@ export function activate(context: vscode.ExtensionContext) {
                     backgroundColor: config.get(tagName),
                     rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
                     isWholeLine: true,
+                    overviewRulerColor: config.get(tagName),
+                    overviewRulerLane: vscode.OverviewRulerLane.Full,
                 });
                 editor.setDecorations(decorations[tagName]!, [range.start, range.end]);
             } else if (decorations[tagName]) {
