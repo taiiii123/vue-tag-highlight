@@ -21,7 +21,7 @@
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
-      "title": "vue-tag-highlight",
+      "title": "Vue Tag Highlight",
       "properties": {
         "vue-tag-highlight.color.script": {
           "type": "string",
