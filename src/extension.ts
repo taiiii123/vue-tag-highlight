@@ -86,35 +86,20 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    const updateDecorationsIfPossible = (): void => {
-        const editor = vscode.window.activeTextEditor;
+    vscode.window.onDidChangeActiveTextEditor(editor => {
         if (editor) {
             updateDecorations(editor);
         }
-    };
-
-    let timeout: NodeJS.Timer | undefined = undefined;
-    function triggerUpdateDecorations(throttle = false) {
-        if (timeout) {
-            clearTimeout(timeout);
-            timeout = undefined;
-        }
-        if (throttle) {
-            timeout = setTimeout(updateDecorationsIfPossible, 500);
-        } else {
-            updateDecorationsIfPossible();
-        }
-    }
-
-    triggerUpdateDecorations();
-
-    vscode.window.onDidChangeActiveTextEditor(_editor => {
-        triggerUpdateDecorations();
-    }, null, context.subscriptions);
+    });
 
     vscode.workspace.onDidChangeTextDocument(event => {
-        if (event.document === vscode.window.activeTextEditor?.document) {
-            triggerUpdateDecorations(true);
+        const editor = vscode.window.activeTextEditor;
+        if (editor && event.document === editor.document) {
+            updateDecorations(editor);
         }
-    }, null, context.subscriptions);
+    });
+
+    if (vscode.window.activeTextEditor) {
+        updateDecorations(vscode.window.activeTextEditor);
+    }
 }
