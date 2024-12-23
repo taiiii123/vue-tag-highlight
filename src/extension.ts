@@ -28,6 +28,10 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     function updateDecorations(editor: vscode.TextEditor) {
+        if (editor.document.languageId !== 'vue') {
+            return;
+        }
+
         const text = editor.document.getText();
 
         const ranges: { [key: string]: { start: vscode.Range | null, end: vscode.Range | null } } = {
