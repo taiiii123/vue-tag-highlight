@@ -26,17 +26,17 @@
       "properties": {
         "vue-tag-highlight.color.script": {
           "type": "string",
-          "default": "rgba(255, 255, 255, 0.2)",
+          "default": "rgba(240, 216, 29, 0.2)",
           "description": "Change the background color of the script tag."
         },
         "vue-tag-highlight.color.template": {
           "type": "string",
-          "default": "rgba(0, 0, 255, 0.2)",
+          "default": "rgba(21, 191, 134, 0.2)",
           "description": "Change the background color of the template tag."
         },
         "vue-tag-highlight.color.style": {
           "type": "string",
-          "default": "rgba(255, 0, 0, 0.2)",
+          "default": "rgba(41, 101, 241, 0.2)",
           "description": "Change the background color of the style tag."
         },
         "vue-tag-highlight.isShowOnScrollbar": {
