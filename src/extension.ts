@@ -5,6 +5,7 @@ export function activate(context: vscode.ExtensionContext) {
     const config = vscode.workspace.getConfiguration('vue-tag-highlight');
     const color = config.get<ExtensionConfig['color']>('color')!;
     const isShowOnScrollbar = config.get<ExtensionConfig['isShowOnScrollbar']>('isShowOnScrollbar', false);
+    const isShowOnTextEditor = config.get<ExtensionConfig['isShowOnTextEditor']>('isShowOnTextEditor', false);
 
     const tagPatterns = {
         script: {
@@ -70,11 +71,13 @@ export function activate(context: vscode.ExtensionContext) {
                     decorations[tagName]!.dispose();
                 }
 
-                const decorationOptions: vscode.DecorationRenderOptions = {
-                    backgroundColor: color[tagName as keyof ExtensionConfig['color']],
-                    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-                    isWholeLine: true,
-                };
+                const decorationOptions: vscode.DecorationRenderOptions = {};
+
+                if (isShowOnTextEditor) {
+                    decorationOptions.backgroundColor = color[tagName as keyof ExtensionConfig['color']];
+                    decorationOptions.rangeBehavior = vscode.DecorationRangeBehavior.ClosedClosed;
+                    decorationOptions.isWholeLine = true;
+                }
 
                 if (isShowOnScrollbar) {
                     decorationOptions.overviewRulerColor = color[tagName as keyof ExtensionConfig['color']];

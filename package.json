@@ -39,6 +39,11 @@
           "default": "rgba(41, 101, 241, 0.2)",
           "description": "Change the background color of the style tag."
         },
+        "vue-tag-highlight.isShowOnTextEditor": {
+          "type": "boolean",
+          "default": true,
+          "description": "Showing the highlight on the text editor."
+        },
         "vue-tag-highlight.isShowOnScrollbar": {
           "type": "boolean",
           "default": true,

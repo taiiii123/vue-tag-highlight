@@ -4,6 +4,7 @@ interface ExtensionConfigType {
         template: string,
         style: string,
     },
+    isShowOnTextEditor: boolean,
     isShowOnScrollbar: boolean,
 }
 
