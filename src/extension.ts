@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { type ExtensionConfig } from './types';
+import { type ExtensionConfig, type Decoration, type Ranges } from './types';
 
 export function activate(context: vscode.ExtensionContext) {
     const config = vscode.workspace.getConfiguration('vue-tag-highlight');
@@ -22,20 +22,20 @@ export function activate(context: vscode.ExtensionContext) {
         },
     };
 
-    let decorations: { [key: string]: vscode.TextEditorDecorationType | null } = {
+    let decorations: Decoration = {
         script: null,
         template: null,
         style: null,
     };
 
-    function updateDecorations(editor: vscode.TextEditor) {
+    function updateDecorations(editor: vscode.TextEditor): void {
         if (editor.document.languageId !== 'vue') {
             return;
         }
 
         const text = editor.document.getText();
 
-        const ranges: { [key: string]: { start: vscode.Range | null, end: vscode.Range | null } } = {
+        const ranges: Ranges = {
             script: { start: null, end: null },
             template: { start: null, end: null },
             style: { start: null, end: null },
