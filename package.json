@@ -17,7 +17,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:plaintext"
+    "onLanguage:vue"
   ],
   "main": "./out/extension.js",
   "contributes": {

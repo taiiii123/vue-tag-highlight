@@ -29,9 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     function updateDecorations(editor: vscode.TextEditor): void {
-        if (editor.document.languageId !== 'vue') {
-            return;
-        }
+        if (!["vue"].includes(editor.document.languageId)) { return; }
 
         const text = editor.document.getText();
 
