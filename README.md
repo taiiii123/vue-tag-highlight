@@ -9,7 +9,7 @@
 
 For example, they will be highlighted as follows:
 
-![feature](./images/example.png)
+![feature](https://github.com/user-attachments/assets/813f5670-1012-4d5c-9d02-9205fac6045d)
 
 ## Configuration
 
@@ -26,7 +26,6 @@ You can customize the background colors of the tags by modifying the settings in
 Here is an example of the `settings.json` configuration:
 
 ```json
-// settings.json
 // settings.json
 "vue-tag-highlight.color.script": "rgba(255, 255, 255, 0.2)",
 "vue-tag-highlight.color.template": "rgba(0, 0, 255, 0.2)",
