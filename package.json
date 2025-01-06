@@ -1,7 +1,7 @@
 {
   "name": "vue-tag-highlight",
   "displayName": "Vue Tag Highlight",
-  "description": "",
+  "description": "Highlight and add color to <script>, <template>, and <style> tags in Vue.",
   "changelog": "CHANGELOG.md",
   "version": "0.0.8",
   "icon": "images/extension-icon.png",
