@@ -1,7 +1,11 @@
 import * as vscode from 'vscode';
+import { type ExtensionConfig, type Decoration, type Ranges } from './types';
 
 export function activate(context: vscode.ExtensionContext) {
-    const config = vscode.workspace.getConfiguration('vue-tag-highlight.color');
+    const config = vscode.workspace.getConfiguration('vue-tag-highlight');
+    const color = config.get<ExtensionConfig['color']>('color')!;
+    const isShowOnScrollbar = config.get<ExtensionConfig['isShowOnScrollbar']>('isShowOnScrollbar', false);
+    const isShowOnTextEditor = config.get<ExtensionConfig['isShowOnTextEditor']>('isShowOnTextEditor', false);
 
     const tagPatterns = {
         script: {
@@ -17,29 +21,31 @@ export function activate(context: vscode.ExtensionContext) {
             end: /<\/style>/g,
         },
     };
-    
-    let decorations: { [key: string]: vscode.TextEditorDecorationType | null } = {
+
+    let decorations: Decoration = {
         script: null,
         template: null,
         style: null,
     };
-    
-    function updateDecorations(editor: vscode.TextEditor) {
+
+    function updateDecorations(editor: vscode.TextEditor): void {
+        if (!["vue"].includes(editor.document.languageId)) { return; }
+
         const text = editor.document.getText();
-    
-        const ranges: { [key: string]: { start: vscode.Range | null, end: vscode.Range | null } } = {
+
+        const ranges: Ranges = {
             script: { start: null, end: null },
             template: { start: null, end: null },
             style: { start: null, end: null },
         };
-    
+
         for (const [tagName, pattern] of Object.entries(tagPatterns)) {
             const startMatches = text.matchAll(pattern.start);
             const endMatches = text.matchAll(pattern.end);
-    
+
             let startRange: vscode.Range | null = null;
             let endRange: vscode.Range | null = null;
-    
+
             for (const match of startMatches) {
                 if (!startRange) {
                     const startPos = editor.document.positionAt(match.index!);
@@ -47,28 +53,36 @@ export function activate(context: vscode.ExtensionContext) {
                     startRange = new vscode.Range(startPos, endPos);
                 }
             }
-    
+
             for (const match of endMatches) {
                 const startPos = editor.document.positionAt(match.index!);
                 const endPos = editor.document.positionAt(match.index! + match[0].length);
                 endRange = new vscode.Range(startPos, endPos);
             }
-    
+
             ranges[tagName] = { start: startRange, end: endRange };
         }
-    
+
         for (const [tagName, range] of Object.entries(ranges)) {
             if (range.start && range.end) {
                 if (decorations[tagName]) {
                     decorations[tagName]!.dispose();
                 }
-                decorations[tagName] = vscode.window.createTextEditorDecorationType({
-                    backgroundColor: config.get(tagName),
-                    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
-                    isWholeLine: true,
-                    overviewRulerColor: config.get(tagName),
-                    overviewRulerLane: vscode.OverviewRulerLane.Full,
-                });
+
+                const decorationOptions: vscode.DecorationRenderOptions = {};
+
+                if (isShowOnTextEditor) {
+                    decorationOptions.backgroundColor = color[tagName as keyof ExtensionConfig['color']];
+                    decorationOptions.rangeBehavior = vscode.DecorationRangeBehavior.ClosedClosed;
+                    decorationOptions.isWholeLine = true;
+                }
+
+                if (isShowOnScrollbar) {
+                    decorationOptions.overviewRulerColor = color[tagName as keyof ExtensionConfig['color']];
+                    decorationOptions.overviewRulerLane = vscode.OverviewRulerLane.Full;
+                }
+
+                decorations[tagName] = vscode.window.createTextEditorDecorationType(decorationOptions);
                 editor.setDecorations(decorations[tagName]!, [range.start, range.end]);
             } else if (decorations[tagName]) {
                 decorations[tagName]!.dispose();
@@ -77,35 +91,20 @@ export function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    const updateDecorationsIfPossible = (): void => {
-        const editor = vscode.window.activeTextEditor;
+    vscode.window.onDidChangeActiveTextEditor(editor => {
         if (editor) {
             updateDecorations(editor);
         }
-    };
-
-    let timeout: NodeJS.Timer | undefined = undefined;
-    function triggerUpdateDecorations(throttle = false) {
-        if (timeout) {
-            clearTimeout(timeout);
-            timeout = undefined;
-        }
-        if (throttle) {
-            timeout = setTimeout(updateDecorationsIfPossible, 500);
-        } else {
-            updateDecorationsIfPossible();
-        }
-    }
-
-    triggerUpdateDecorations();
-
-    vscode.window.onDidChangeActiveTextEditor(_editor => {
-        triggerUpdateDecorations();
-    }, null, context.subscriptions);
+    });
 
     vscode.workspace.onDidChangeTextDocument(event => {
-        if (event.document === vscode.window.activeTextEditor?.document) {
-            triggerUpdateDecorations(true);
+        const editor = vscode.window.activeTextEditor;
+        if (editor && event.document === editor.document) {
+            updateDecorations(editor);
         }
-    }, null, context.subscriptions);
+    });
+
+    if (vscode.window.activeTextEditor) {
+        updateDecorations(vscode.window.activeTextEditor);
+    }
 }
