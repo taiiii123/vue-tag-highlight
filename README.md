@@ -1,4 +1,10 @@
-# vue-tag-highlight README
+<div align="right" style="font-size: 20px;">
+
+**English** | [日本語](./README.ja.md)
+
+</div>
+
+# **Vue Tag Highlight** - VS Code Extension
 
 **Vue Tag Highlight** is a Visual Studio Code extension that highlights and adds color to `<script>`, `<template>`, and `<style>` tags in Vue files. It helps improve the readability and structure of your Vue components by visually distinguishing the different sections of the code.
 
@@ -36,6 +42,9 @@ Here is an example of the `settings.json` configuration:
 
 ## Activating the Extension
 
-The extension is activated automatically when editing a `.vue` file.
+This extension is automatically activated for `.vue` files.
+
+# License
+[MIT](./LICENSE)
 
 ---

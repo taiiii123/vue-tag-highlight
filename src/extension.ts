@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { l10n } from 'vscode';
 import { type ExtensionConfig, type Decoration, type Ranges } from './types';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -90,6 +91,23 @@ export function activate(context: vscode.ExtensionContext) {
             }
         }
     }
+
+    context.subscriptions.push(
+        vscode.workspace.onDidChangeConfiguration(async (e) => {
+            if (e.affectsConfiguration('vue-tag-highlight')) {
+
+                const answer = await vscode.window.showInformationMessage(
+                    l10n.t("Vue Tag Highlight: Settings have been changed. A window reload is required to apply the changes. Do you want to reload now?"),
+                    l10n.t("Yes"),
+                    l10n.t("No")
+                );
+
+                if (answer === l10n.t("Yes")) {
+                    vscode.commands.executeCommand('workbench.action.reloadWindow');
+                }
+            }
+        })
+    );
 
     vscode.window.onDidChangeActiveTextEditor(editor => {
         if (editor) {

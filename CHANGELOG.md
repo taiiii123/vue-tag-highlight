@@ -19,3 +19,11 @@
 ### Refactor
 - Moved types to `type.d.ts` file.
 - Refactor decoration update logic.
+
+## [0.0.9] - 2025-05-04
+### Added
+- Added Japanese documentation (`README.ja.md`).
+- Added a confirmation dialog for reloading when settings are changed.
+
+### Changed
+- Updated the extension logo.
